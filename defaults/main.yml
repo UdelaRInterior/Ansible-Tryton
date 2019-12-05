@@ -1,2 +1,4 @@
 ---
-# defaults file for tryton
+
+base_dir: tryton
+postgresql_pass: tryton

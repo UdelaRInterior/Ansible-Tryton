@@ -1,2 +1,39 @@
 ---
-# tasks file for tryton
+
+- name: Install | Packages
+  package: name={{ item }} state=latest
+  with_items: "{{ debian_packages }}"
+
+- name: Create | Directory | {{ base_dir }}
+  file:
+    path: '{{ base_dir }}'
+    state: directory
+    mode: '0755'
+
+- name: Create | Directory | python
+  file:
+    path: '{{ base_dir }}/python'
+    state: directory
+    mode: '0755'
+
+- name: Create | Virtualenv
+  command: 'virtualenv {{ base_dir }}/python'
+
+- name: Activate | Virtualenv
+  shell: '. {{ base_dir }}/python/bin/activate'
+
+- name: Pip | Copy | Requirements
+  copy:
+    src: requirements.txt
+    dest: /tryton/requirements.txt
+    mode: '0644'
+
+- name: Pip | Tryton modules
+  pip: 
+    requirements: /tryton/requirements.txt
+    virtualenv: /tryton/python
+
+- name: Tryton | Conf 
+  template:
+    src: trytond.conf.j2
+    dest: '{{ base_dir }}/python/trytond.conf'
