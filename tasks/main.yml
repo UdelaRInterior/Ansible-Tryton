@@ -25,13 +25,13 @@
 - name: Pip | Copy | Requirements
   copy:
     src: requirements.txt
-    dest: /tryton/requirements.txt
+    dest: '/{{ base_dir }}/requirements.txt'
     mode: '0644'
 
 - name: Pip | Tryton modules
   pip: 
-    requirements: /tryton/requirements.txt
-    virtualenv: /tryton/python
+    requirements: '/{{ base_dir }}/requirements.txt'
+    virtualenv: '/{{ base_dir }}/python'
 
 - name: Tryton | Conf 
   template:
