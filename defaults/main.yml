@@ -3,7 +3,7 @@
 base_dir: tryton
 postgresql_pass: tryton
 
-tryton_modules: 
+tryton_pip_packages: 
   - trytond>=4.6,<4.7
   - bcrypt
   - psycopg2

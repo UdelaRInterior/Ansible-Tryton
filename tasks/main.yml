@@ -28,7 +28,7 @@
     dest: '/{{ base_dir }}/requirements.txt'
     mode: '0644'
 
-- name: Pip | Tryton modules
+- name: Pip | Tryton packages
   pip: 
     requirements: '/{{ base_dir }}/requirements.txt'
     virtualenv: '/{{ base_dir }}/python'
