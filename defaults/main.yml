@@ -2,3 +2,17 @@
 
 base_dir: tryton
 postgresql_pass: tryton
+
+tryton_modules: 
+  - trytond>=4.6,<4.7
+  - bcrypt
+  - psycopg2
+  - trytond_company>=4.6,<4.7
+  - trytond_currency>=4.6,<4.7
+  - trytond_party>=4.6,<4.7
+  - trytond_stock>=4.6,<4.7
+  - trytond_product>=4.6,<4.7
+  - trytond_ldap_authentication>=4.6,<4.7
+  - py-xlsx
+  - pytz
+  - fuzzywuzzy

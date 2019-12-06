@@ -23,8 +23,8 @@
   shell: '. {{ base_dir }}/python/bin/activate'
 
 - name: Pip | Copy | Requirements
-  copy:
-    src: requirements.txt
+  template:
+    src: requirements.txt.j2
     dest: '/{{ base_dir }}/requirements.txt'
     mode: '0644'
 
