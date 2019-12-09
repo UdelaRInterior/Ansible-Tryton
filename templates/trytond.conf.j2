@@ -45,7 +45,7 @@ root = /srv/saotargz/sao-4.2.0
 # PostgreSQL via Unix domain sockets
 # (e.g. PostgreSQL database running on the same machine (localhost))
 #uri = postgresql://tryton:tryton@/
-uri = postgresql://tryton:{{ postgresql_pass }}@localhost:5432/
+uri = postgresql://{{ postgresql_user }}:{{ postgresql_pass }}@{{ postgresql_url }}:{{ postgresql_port}}/
 #
 # PostgreSQL via TCP/IP
 # (e.g. connecting to a PostgreSQL database running on a remote machine or
