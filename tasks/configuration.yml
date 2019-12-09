@@ -1,0 +1,6 @@
+---
+
+- name: Tryton | Conf 
+  template:
+    src: trytond.conf.j2
+    dest: '{{ base_dir }}/python/trytond.conf'

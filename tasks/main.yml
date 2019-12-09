@@ -1,39 +1,6 @@
 ---
 
-- name: Install | Packages
-  package: name={{ item }} state=latest
-  with_items: "{{ debian_packages }}"
+- include_tasks: dependencies.yml
 
-- name: Create | Directory | {{ base_dir }}
-  file:
-    path: '{{ base_dir }}'
-    state: directory
-    mode: '0755'
+- include_tasks: configuration.yml
 
-- name: Create | Directory | python
-  file:
-    path: '{{ base_dir }}/python'
-    state: directory
-    mode: '0755'
-
-- name: Create | Virtualenv
-  command: 'virtualenv {{ base_dir }}/python'
-
-- name: Activate | Virtualenv
-  shell: '. {{ base_dir }}/python/bin/activate'
-
-- name: Pip | Copy | Requirements
-  template:
-    src: requirements.txt.j2
-    dest: '/{{ base_dir }}/requirements.txt'
-    mode: '0644'
-
-- name: Pip | Tryton packages
-  pip: 
-    requirements: '/{{ base_dir }}/requirements.txt'
-    virtualenv: '/{{ base_dir }}/python'
-
-- name: Tryton | Conf 
-  template:
-    src: trytond.conf.j2
-    dest: '{{ base_dir }}/python/trytond.conf'

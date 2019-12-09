@@ -1,0 +1,35 @@
+---
+
+- name: Install | Packages
+  package: name={{ item }} state=latest
+  with_items: "{{ debian_packages }}"
+
+- name: Create | Directory | {{ base_dir }}
+  file:
+    path: '{{ base_dir }}'
+    state: directory
+    mode: '0755'
+
+- name: Create | Directory | python
+  file:
+    path: '{{ base_dir }}/python'
+    state: directory
+    mode: '0755'
+
+- name: Create | Virtualenv
+  command: 'virtualenv {{ base_dir }}/python'
+
+- name: Activate | Virtualenv
+  shell: '. {{ base_dir }}/python/bin/activate'
+
+- name: Pip | Copy | Requirements
+  template:
+    src: requirements.txt.j2
+    dest: '{{ base_dir }}/requirements.txt'
+    mode: '0644'
+
+- name: Pip | Tryton packages
+  pip: 
+    chdir: '{{ base_dir }}'
+    requirements: requirements.txt
+    virtualenv: '/{{ base_dir }}/python'
