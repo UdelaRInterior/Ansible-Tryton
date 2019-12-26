@@ -19,3 +19,8 @@ tryton_pip_packages:
   - py-xlsx
   - pytz
   - fuzzywuzzy
+
+## clone from repository
+clone_from_repository: false
+clone_from_url: ''
+clone_dir_name: ''

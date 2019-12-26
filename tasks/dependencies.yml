@@ -20,7 +20,9 @@
   command: 'virtualenv {{ base_dir }}/python'
 
 - name: Activate | Virtualenv
-  shell: '. {{ base_dir }}/python/bin/activate'
+  shell: '. bin/activate'
+  args:
+    chdir: '{{ base_dir }}/python/'
 
 - name: Pip | Copy | Requirements
   template:
