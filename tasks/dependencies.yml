@@ -14,7 +14,7 @@
   file:
     path: '{{ base_dir }}/python'
     state: directory
-    mode: '0755'
+    owner: '{{ base_dir_owner }}'
 
 - name: Create | Virtualenv
   command: 'virtualenv {{ base_dir }}/python'

@@ -3,16 +3,19 @@
 - name: Clone | Packages
   package: name=git state=latest
 
-- name: Create | Directory | {{ clone_dir_name }}
-  file:
-    path: '{{ base_dir }}/python/{{ clone_dir_name }}'
-    state: directory
-    mode: '0755'
+#- name: Clone | Private | Known_hosts
+#  known_hosts:
+#    name: "{{ item }}"
+#    key: "{{ lookup('pipe', 'ssh-keyscan {{ item }},`dig +short {{ item }}`') }}"
+#  with_items:
+#   - "{{ clone_git_url }}"
+#  when: "{{ clone_is_private }}"
 
 - name: Clone | Git | Repo
   git:
     repo: "{{ clone_from_url }}"
     dest: "{{ base_dir }}/python/{{ clone_dir_name }}"
-    update: "yes"
-    force: true
-
+    update: yes
+   accept_hostkey: yes
+    key_file: .ssh/id_desarrollo
+#  become_user: deploy

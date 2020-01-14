@@ -1,6 +1,7 @@
 ---
 
 base_dir: tryton
+base_dir_owner: root
 postgresql_user: tryton
 postgresql_pass: tryton
 postgresql_url: localhost
@@ -24,3 +25,5 @@ tryton_pip_packages:
 clone_from_repository: false
 clone_from_url: ''
 clone_dir_name: ''
+clone_git_url: gitlab.com
+clone_is_private: false

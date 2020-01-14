@@ -1,6 +1,6 @@
 galaxy_info:
   author: Marce Godoy (@dkmarce)
-  description: Role to install Tryton and postgresql with ansible
+  description: Role to install and configure Tryton with ansible
   company: Red Unidades Informáticas UdelaR Interior (@UdelaRInterior)
 
   license: GPLv3
