@@ -16,6 +16,5 @@
     repo: "{{ clone_from_url }}"
     dest: "{{ base_dir }}/python/{{ clone_dir_name }}"
     update: yes
-   accept_hostkey: yes
-    key_file: .ssh/id_desarrollo
-#  become_user: deploy
+    accept_hostkey: yes
+  become_user: deploy
