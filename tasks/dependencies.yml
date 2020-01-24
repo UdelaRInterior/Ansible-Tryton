@@ -1,37 +1,42 @@
 ---
 
-- name: Install | Packages
-  package: name={{ item }} state=latest
-  with_items: "{{ debian_packages }}"
+- name: Install | Dependencies
+  apt:
+    name:
+      - python
+      - python-dev
+      - gcc
+      - libpq-dev
+      - virtualenv
+    state: present
+    update_cache: yes
 
-- name: Create | Directory | {{ base_dir }}
-  file:
-    path: '{{ base_dir }}'
-    state: directory
-    mode: '0755'
+- name: Upgrade | Pip
+  pip:
+    name:
+      - pip
+      - virtualenv
+    state: latest
 
-- name: Create | Directory | python
-  file:
-    path: '{{ base_dir }}/python'
-    state: directory
-    owner: '{{ base_dir_owner }}'
+- name: Create | User | Tryton
+  user:
+    name: tryton
+    create_home: yes
+    home: "{{ base_path }}"
+    shell: /bin/false
+    state: present
 
-- name: Create | Virtualenv
-  command: 'virtualenv {{ base_dir }}/python'
-
-- name: Activate | Virtualenv
-  shell: '. bin/activate'
-  args:
-    chdir: '{{ base_dir }}/python/'
-
-- name: Pip | Copy | Requirements
+- name: Pip | Template | Requirements
   template:
     src: requirements.txt.j2
-    dest: '{{ base_dir }}/requirements.txt'
-    mode: '0644'
+    dest: "{{ base_path }}/requirements.txt"
+    owner: tryton
 
 - name: Pip | Tryton packages
   pip: 
-    chdir: '{{ base_dir }}'
+    chdir: "{{ base_path }}"
     requirements: requirements.txt
-    virtualenv: '/{{ base_dir }}/python'
+    virtualenv: "{{ base_path }}/python"
+    virtualenv_python: "{{ python_version }}"
+    state: "{{ python_state }}"
+  become_user: tryton

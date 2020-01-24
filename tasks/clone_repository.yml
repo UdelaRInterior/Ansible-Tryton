@@ -3,18 +3,20 @@
 - name: Clone | Packages
   package: name=git state=latest
 
-#- name: Clone | Private | Known_hosts
-#  known_hosts:
-#    name: "{{ item }}"
-#    key: "{{ lookup('pipe', 'ssh-keyscan {{ item }},`dig +short {{ item }}`') }}"
-#  with_items:
-#   - "{{ clone_git_url }}"
-#  when: "{{ clone_is_private }}"
+- name: Copy | Deploy key
+  copy:
+    content: "{{ clone_deploy_key }}"
+    dest: "{{ base_path }}/id_deploy_key"
+    owner: tryton
+    group: tryton
+    mode: "0600"
+  no_log: true
 
 - name: Clone | Git | Repo
   git:
     repo: "{{ clone_from_url }}"
-    dest: "{{ base_dir }}/python/{{ clone_dir_name }}"
+    dest: "{{ base_path }}/python/{{ clone_dir_name }}"
     update: yes
     accept_hostkey: yes
-  become_user: deploy
+    key_file: "{{ base_path }}/id_deploy_key"
+  become_user: tryton

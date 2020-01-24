@@ -1,8 +1,2 @@
 ---
 
-debian_packages: 
-  - python
-  - python-dev
-  - gcc
-  - libpq-dev
-  - virtualenv
