@@ -3,4 +3,4 @@
 - name: Tryton | Conf 
   template:
     src: trytond.conf.j2
-    dest: "{{ base_path }}/python/trytond.conf"
+    dest: "{{ tryton_base_path }}/python/trytond.conf"

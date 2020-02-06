@@ -22,21 +22,21 @@
   user:
     name: tryton
     create_home: yes
-    home: "{{ base_path }}"
+    home: "{{ tryton_base_path }}"
     shell: /bin/false
     state: present
 
 - name: Pip | Template | Requirements
   template:
     src: requirements.txt.j2
-    dest: "{{ base_path }}/requirements.txt"
+    dest: "{{ tryton_base_path }}/requirements.txt"
     owner: tryton
 
 - name: Pip | Tryton packages
   pip: 
-    chdir: "{{ base_path }}"
+    chdir: "{{ tryton_base_path }}"
     requirements: requirements.txt
-    virtualenv: "{{ base_path }}/python"
-    virtualenv_python: "{{ python_version }}"
-    state: "{{ python_state }}"
+    virtualenv: "{{ tryton_base_path }}/python"
+    virtualenv_python: "{{ tryton_python_version }}"
+    state: "{{ tryton_python_state }}"
   become_user: tryton

@@ -1,0 +1,35 @@
+---
+
+- name: Tryton-sao | Nodesource apt key
+  apt_key:
+    url: https://keyserver.ubuntu.com/pks/lookup?op=get&fingerprint=on&search=0x1655A0AB68576280
+    id: "68576280"
+    state: present
+
+- name: Tryton-sao | repositories for Node.js
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+  with_items:
+    - "deb https://deb.nodesource.com/node_{{ tryton_nodejs_version }} {{ ansible_distribution_release }} main"
+    - "deb-src https://deb.nodesource.com/node_{{ tryton_nodejs_version }} {{ ansible_distribution_release }} main"
+  register: node_repo
+
+- name: Tryton-sao | Update apt cache if repo was added
+  apt: update_cache=yes
+  when: node_repo.changed
+
+- name: Tryton-sao | Install Node.js and npm 
+  apt:
+    name: "nodejs={{ tryton_nodejs_version|regex_replace('x', '') }}*"
+    state: present
+
+- name: Tryton-sao | Download sao
+  unarchive:
+    src: "https://github.com/tryton/sao/archive/{{ tryton_sao_version }}.tar.gz"
+    dest: "{{ tryton_sao_dest }}/"
+    remote_src: yes
+
+- name: Tryton-sao | npm install
+  npm:
+    path: "{{ tryton_sao_dest }}/sao-{{ tryton_sao_version }}"

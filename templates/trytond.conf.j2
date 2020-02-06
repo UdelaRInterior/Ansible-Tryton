@@ -30,7 +30,7 @@ listen = 0.0.0.0:8080
 
 #https://proyectos.interior.edu.uy/issues/5921
 #Se ven todos los ítems de información (cliente desempaquetado desde un tar.gz correspondiente a su versión)
-root = /srv/saotargz/sao-4.2.0
+root = /srv/sao-{{ tryton_sao_version }}
 
 #No se ven los ítems de información individuales (ultima versión compilada desde el repositorio)
 #root = /srv/sao/sao
@@ -45,7 +45,7 @@ root = /srv/saotargz/sao-4.2.0
 # PostgreSQL via Unix domain sockets
 # (e.g. PostgreSQL database running on the same machine (localhost))
 #uri = postgresql://tryton:tryton@/
-uri = postgresql://{{ postgresql_user }}:{{ postgresql_pass }}@{{ postgresql_url }}:{{ postgresql_port}}/
+uri = postgresql://{{ tryton_postgresql_user }}:{{ tryton_postgresql_pass }}@{{ tryton_postgresql_url }}:{{ tryton_postgresql_port}}/
 #
 # PostgreSQL via TCP/IP
 # (e.g. connecting to a PostgreSQL database running on a remote machine or
@@ -113,7 +113,7 @@ path = /var/lib/tryton
 #authentications = password
 
 # The time (in seconds) until an inactive session expires
-#timeout = 600
+timeout = 3600
 
 [email]
 # Mail settings
@@ -123,7 +123,7 @@ path = /var/lib/tryton
 # - smtp: simple SMTP
 # - smtp+tls: SMTP with STARTTLS
 # - smtps: SMTP with SSL
-#uri = smtp://localhost:25
+uri = {{ tryton_email_uri }}
 
 # The From address used by the Tryton Server to send emails.
 #from = tryton@localhost
@@ -149,14 +149,14 @@ path = /var/lib/tryton
 # Various cache size settings.
 
 # The number of different models kept in the cache per transaction.
-#model = 200
+model = 400
 
 # The number of loaded records kept in the cache of the list.
 # It can be changed locally using the _record_cache_size key in Transaction.context.
-#record = 2000
+record = 4000
 
 # The number of fields to load with eager Field.loading.
-#field = 100
+field = 300
 
 [table]
 # This section allows to override the default generated table names. The main purpose
@@ -174,18 +174,18 @@ path = /var/lib/tryton
 #
 [ldap_authentication]
 # The LDAP URL to connect to the server following RFC-2255.
-#uri = ldap://host:port/dn?attributes?scope?filter?extensions
+uri = {{ tryton_ldap_uri }}
 # A basic default URL could look like
 #uri = ldap://localhost:389/
 
 # The LDAP password used to bind if needed.
-#bind_pass = 
+bind_pass = {{ tryton_ldap_bind_pass }}
 
 # If the LDAP server is an Active Directory.
 #active_directory = False
 
 # The UID attribute for authentication.
-#uid = uid
+uid = {{ tryton_ldap_uid }}
 
 # If the user shall be created in the database in case it does not exist.
 #create_user = False
