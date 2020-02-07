@@ -5,6 +5,7 @@ tryton_base_path: /home/tryton
 tryton_python_version: python3
 tryton_python_state: latest
 
+## postgresql
 tryton_postgresql_user: tryton
 tryton_postgresql_pass: tryton
 tryton_postgresql_url: localhost

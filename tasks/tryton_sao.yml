@@ -33,3 +33,7 @@
 - name: Tryton-sao | npm install
   npm:
     path: "{{ tryton_sao_dest }}/sao-{{ tryton_sao_version }}"
+
+- name: Tryton-sao | Bower install
+  bower:
+    path: "{{ tryton_sao_dest }}/sao-{{ tryton_sao_version }}"
