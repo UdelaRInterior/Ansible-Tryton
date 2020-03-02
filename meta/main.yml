@@ -14,5 +14,6 @@ galaxy_info:
 
   galaxy_tags:
     - tryton
-
+    - tryton-sao
+    
   dependencies: []
