@@ -1,45 +1,46 @@
 ---
 
-tryton_base_path: /home/tryton
+############################################
+############################################
+#Tryton users
 
-tryton_python_version: python3
-tryton_python_state: latest
-
-## postgresql
-tryton_postgresql_user: tryton
-tryton_postgresql_pass: tryton
-tryton_postgresql_url: localhost
-tryton_postgresql_port: 5432
-
-tryton_pip_packages: 
-  - trytond>=4.6,<4.7
-  - bcrypt
-  - psycopg2
-  - trytond_company>=4.6,<4.7
-  - trytond_currency>=4.6,<4.7
-  - trytond_party>=4.6,<4.7
-  - trytond_stock>=4.6,<4.7
-  - trytond_product>=4.6,<4.7
-  - trytond_ldap_authentication>=4.6,<4.7
-  - py-xlsx
-  - pytz
-  - fuzzywuzzy
-
-## clone from repository
-tryton_clone_from_repository: false
-tryton_clone_from_url: ''
-tryton_clone_dir_name: ''
-tryton_clone_git_url: gitlab.com
-tryton_clone_is_private: false
-tryton_clone_deploy_key: "deploy_key"
+tryton_versions:
+  tryton_dev:
+    user: tryton
+    pass: tryton 
+    base_path: /home/tryton
+    python_version: python3
+    python_state: latest
+    postgresql_url: localhost
+    postgresql_port: 5432
+    pip_packages: 
+      - trytond>=4.6,<4.7
+      - bcrypt
+      - psycopg2
+      - trytond_company>=4.6,<4.7
+      - trytond_currency>=4.6,<4.7
+      - trytond_party>=4.6,<4.7
+      - trytond_stock>=4.6,<4.7
+      - trytond_product>=4.6,<4.7
+      - trytond_ldap_authentication>=4.6,<4.7
+      - py-xlsx
+      - pytz
+      - fuzzywuzzy
+    clone_from_repository: false
+    clone_from_url: ''
+    clone_dir_name: ''
+    clone_git_url: gitlab.com
+    clone_is_private: false
+    clone_deploy_key: "deploy_key"
+    ldap_bind_pass: "password"
+    ldap_uid: "uid"
+    ldap_uri: "ldap://ldap.example.com/ou=group,dc=example,dc=com??subtree??bindname=cn=login,cn=example,ou=group,dc=example,dc=com"
+    
+#############################################
+#############################################
 
 ## tryton sao
 tryton_sao_install: false
 tryton_nodejs_version: "12.x"
 tryton_sao_version: "4.6.0"
 tryton_sao_dest: "/srv"
-
-## ldap
-tryton_ldap_bind_pass: "password"
-tryton_ldap_uid: "uid"
-tryton_ldap_uri: "ldap://ldap.example.com/ou=group,dc=example,dc=com??subtree??bindname=cn=login,cn=example,ou=group,dc=example,dc=com"
