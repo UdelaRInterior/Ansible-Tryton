@@ -27,13 +27,9 @@ listen = 0.0.0.0:8080
 # (i.e. namely the path to the web client)
 # (Internal default: /var/www/localhost/tryton)
 #root = /usr/share/tryton-sao/www
-
-#https://proyectos.interior.edu.uy/issues/5921
-#Se ven todos los ítems de información (cliente desempaquetado desde un tar.gz correspondiente a su versión)
-root = /srv/sao-{{ tryton_sao_version }}
-
-#No se ven los ítems de información individuales (ultima versión compilada desde el repositorio)
-#root = /srv/sao/sao
+{% if {{ item.value.sao_install }} %}
+    root = {{ item.value.sao_dest }}sao-{{ item.value.sao_version }}
+{% endif %}
 
 [database]
 # Database related settings
@@ -45,7 +41,7 @@ root = /srv/sao-{{ tryton_sao_version }}
 # PostgreSQL via Unix domain sockets
 # (e.g. PostgreSQL database running on the same machine (localhost))
 #uri = postgresql://tryton:tryton@/
-uri = postgresql://{{ tryton_postgresql_user }}:{{ tryton_postgresql_pass }}@{{ tryton_postgresql_url }}:{{ tryton_postgresql_port}}/
+uri = postgresql://{{ item.value.postgresql_user }}:{{ item.value.postgresql_pass }}@{{ item.value.postgresql_url }}:{{ item.value.postgresql_port}}/
 #
 # PostgreSQL via TCP/IP
 # (e.g. connecting to a PostgreSQL database running on a remote machine or
@@ -110,7 +106,7 @@ path = /var/lib/tryton
 # password entered by the user against a stored hash.
 # Other modules may define other methods (please refer to their documentation).
 # The methods are tested following the order of the list.
-#authentications = password
+authentications = {{ item.value.authentications }}
 
 # The time (in seconds) until an inactive session expires
 timeout = 3600
@@ -123,7 +119,7 @@ timeout = 3600
 # - smtp: simple SMTP
 # - smtp+tls: SMTP with STARTTLS
 # - smtps: SMTP with SSL
-uri = {{ tryton_email_uri }}
+uri = {{ item.value.email_uri }}
 
 # The From address used by the Tryton Server to send emails.
 #from = tryton@localhost
@@ -174,18 +170,18 @@ field = 300
 #
 [ldap_authentication]
 # The LDAP URL to connect to the server following RFC-2255.
-uri = {{ tryton_ldap_uri }}
+uri = {{ item.value.ldap_uri }}
 # A basic default URL could look like
 #uri = ldap://localhost:389/
 
 # The LDAP password used to bind if needed.
-bind_pass = {{ tryton_ldap_bind_pass }}
+bind_pass = {{ item.value.ldap_bind_pass }}
 
 # If the LDAP server is an Active Directory.
 #active_directory = False
 
 # The UID attribute for authentication.
-uid = {{ tryton_ldap_uid }}
+uid = {{ item.value.ldap_uid }}
 
 # If the user shall be created in the database in case it does not exist.
 #create_user = False

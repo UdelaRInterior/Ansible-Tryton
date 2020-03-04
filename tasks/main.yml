@@ -7,5 +7,6 @@
 - include_tasks: clone_repository.yml
   when: clone_from_repository | bool
 
-#- include_tasks: tryton_sao.yml
-#  when: tryton_sao_install | bool
+  
+- include_tasks: tryton_sao.yml
+  when: tryton_sao_install | bool
