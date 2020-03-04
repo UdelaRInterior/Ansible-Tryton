@@ -26,14 +26,14 @@
 
 - name: Tryton-sao | Download sao
   unarchive:
-    src: "https://github.com/tryton/sao/archive/{{ tryton_sao_version }}.tar.gz"
-    dest: "{{ tryton_sao_dest }}/"
+    src: "https://github.com/tryton/sao/archive/{{ item.value.sao_version }}.tar.gz"
+    dest: "{{ item.value.sao_dest }}/"
     remote_src: yes
 
 - name: Tryton-sao | npm install
   npm:
-    path: "{{ tryton_sao_dest }}/sao-{{ tryton_sao_version }}"
+    path: "{{ item.value.sao_dest }}/sao-{{ item.value.sao_version }}"
 
 - name: Tryton-sao | Bower install
   bower:
-    path: "{{ tryton_sao_dest }}/sao-{{ tryton_sao_version }}"
+    path: "{{ item.value.sao_dest }}/sao-{{ item.value.sao_version }}"

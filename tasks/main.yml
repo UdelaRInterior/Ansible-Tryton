@@ -9,4 +9,5 @@
   with_items: tryton_versions
 
 - include_tasks: tryton_sao.yml
-  when: tryton_sao_install | bool
+  when: '{{ item.value.sao_install }} | bool' 
+  with_items: tryton_versions
