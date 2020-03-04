@@ -5,18 +5,19 @@
 
 - name: Copy | Deploy key
   copy:
-    content: "{{ tryton_clone_deploy_key }}"
-    dest: "{{ tryton_base_path }}/id_deploy_key"
+    content: "{{ item.value.clone_deploy_key }}"
+    dest: "{{ item.value.base_path }}/id_deploy_key"
     owner: tryton
     group: tryton
     mode: "0600"
   no_log: true
+  when: "when: '{{ item.value.clone_is_private }} | bool'"
 
 - name: Clone | Git | Repo
   git:
-    repo: "{{ tryton_clone_from_url }}"
-    dest: "{{ tryton_base_path }}/python/{{ tryton_clone_dir_name }}"
+    repo: "{{ item.value.clone_from_url }}"
+    dest: "{{ item.value.base_path }}/python/{{ item.value.clone_dir_name }}"
     update: yes
     accept_hostkey: yes
-    key_file: "{{ tryton_base_path }}/id_deploy_key"
-  become_user: tryton
+    key_file: "{{ item.value.base_path }}/id_deploy_key"
+  become_user: "{{ item.key }}"

@@ -5,8 +5,8 @@
 - include_tasks: configuration.yml
 
 - include_tasks: clone_repository.yml
-  when: clone_from_repository | bool
+  when: '{{ item.value.clone_from_repository }} | bool' 
+  with_items: tryton_versions
 
-  
 - include_tasks: tryton_sao.yml
   when: tryton_sao_install | bool
