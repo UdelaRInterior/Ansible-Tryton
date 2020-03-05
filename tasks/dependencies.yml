@@ -20,19 +20,26 @@
 
 - name: Create | User | Tryton
   user:
-    name: "{{ item.key }}"
+    name: "{{ item.value.user }}"
     create_home: yes
     home: "{{ item.value.base_path }}"
     shell: /bin/false
     state: present
-  with_dict: tryton_versions
+  with_dict: "{{ tryton_versions }}"
+
+- name: Pip | Template | Requirements
+  template:
+    src: requirements.txt.j2
+    dest: "{{ item.value.base_path }}/requirements.txt"
+    owner: "{{ item.value.user }}"
+  with_dict: "{{ tryton_versions }}"
 
 - name: Pip | Tryton packages
   pip: 
-    name: "{{ item.value.pip_packages }}"
+    requirements: requirements.txt
     chdir: "{{ item.value.base_path }}"
     virtualenv: "{{ item.value.base_path }}/python"
     virtualenv_python: "{{ item.value.python_version }}"
     state: "{{ item.value.python_state }}"
   become_user: "{{ item.value.user }}"
-  with_dict: tryton_versions
+  with_dict: "{{ tryton_versions }}"

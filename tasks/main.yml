@@ -5,9 +5,9 @@
 - include_tasks: configuration.yml
 
 - include_tasks: clone_repository.yml
-  when: '{{ item.value.clone_from_repository }} | bool' 
-  with_items: tryton_versions
+  when: [ item.value.clone_from_repository ] 
+  with_dict: "{{ tryton_versions }}"
 
 - include_tasks: tryton_sao.yml
-  when: '{{ item.value.sao_install }} | bool' 
-  with_items: tryton_versions
+  when: [ item.value.sao_install ]
+  with_dict: "{{ tryton_versions }}"

@@ -10,8 +10,8 @@
     owner: tryton
     group: tryton
     mode: "0600"
-  no_log: true
-  when: "when: '{{ item.value.clone_is_private }} | bool'"
+  #no_log: true
+  when: [ item.value.clone_is_private ] 
 
 - name: Clone | Git | Repo
   git:
@@ -20,4 +20,4 @@
     update: yes
     accept_hostkey: yes
     key_file: "{{ item.value.base_path }}/id_deploy_key"
-  become_user: "{{ item.key }}"
+  become_user: "{{ item.value.user }}"

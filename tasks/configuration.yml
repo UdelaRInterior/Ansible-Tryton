@@ -4,4 +4,4 @@
   template:
     src: trytond.conf.j2
     dest: "{{ item.value.base_path }}/python/trytond.conf"
-  with_items: tryton_versions 
+  with_dict: "{{ tryton_versions }}" 
