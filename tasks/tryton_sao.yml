@@ -29,7 +29,8 @@
     src: "https://github.com/tryton/sao/archive/{{ item.value.sao_version }}.tar.gz"
     dest: "{{ item.value.sao_dest }}/"
     remote_src: yes
-
+  become_user: "{{ item.value.user }}"
+  
 - name: Tryton-sao | npm install
   npm:
     path: "{{ item.value.sao_dest }}/sao-{{ item.value.sao_version }}"
