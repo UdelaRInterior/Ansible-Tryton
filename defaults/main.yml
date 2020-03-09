@@ -9,6 +9,7 @@ tryton_versions:
     user: tryton
     pass: tryton 
     base_path: /home/tryton
+    port: 8080
     python_version: python3
     python_state: latest
     postgresql_url: localhost

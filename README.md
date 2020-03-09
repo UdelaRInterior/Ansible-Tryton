@@ -21,6 +21,7 @@ Example Playbook
         tryton_dev:
           user: tryton
           pass: tryton 
+          port: 8080
           base_path: /home/tryton
           python_version: python3
           python_state: latest
