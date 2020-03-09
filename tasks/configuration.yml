@@ -3,4 +3,6 @@
 - name: Tryton | Conf 
   template:
     src: trytond.conf.j2
-    dest: "{{ tryton_base_path }}/python/trytond.conf"
+    dest: "{{ item.value.base_path }}/python/trytond.conf"  
+  become_user: "{{ item.value.user }}"
+  with_dict: "{{ tryton_versions }}" 
