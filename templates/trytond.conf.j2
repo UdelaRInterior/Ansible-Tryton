@@ -28,7 +28,7 @@ listen = 0.0.0.0:8080
 # (Internal default: /var/www/localhost/tryton)
 #root = /usr/share/tryton-sao/www
 {% if item.value.sao_install %}
-root = {{ item.value.sao_dest }}sao-{{ item.value.sao_version }}
+root = {{ item.value.sao_dest }}/sao-{{ item.value.sao_version }}
 {% endif %}
 
 [database]

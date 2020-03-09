@@ -37,6 +37,9 @@ tryton_versions:
     clone_is_private: false
     clone_deploy_key: "deploy_key"
     
+    ##REPO SYM LINK
+    clone_sym_link_module: "request"
+    
     ##LDAP
     ldap_bind_pass: "password"
     ldap_uid: "uid"

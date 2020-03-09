@@ -21,3 +21,9 @@
     accept_hostkey: yes
     key_file: "{{ item.value.base_path }}/id_deploy_key"
   become_user: "{{ item.value.user }}"
+
+- name: Create | symbolic link 
+  file:
+    src: "{{ item.value.base_path }}/python/{{ item.value.clone_dir_name }}/{{ clone_sym_link_module }}"
+    dest: "{{ item.value.base_path }}/python/lib/{{ python_version }}/site-packages/trytond/modules/{{ clone_sym_link_module }}"
+    state: link
