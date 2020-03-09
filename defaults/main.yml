@@ -6,10 +6,10 @@
 
 tryton_versions:
   tryton_dev:
-    user: tryton
-    pass: tryton 
-    base_path: /home/tryton
-    port: 8080
+    tryton_user: tryton
+    tryton_pass: tryton 
+    tryton_base_path: /home/tryton
+    tryton_port: 8080
     python_version: python3
     python_state: latest
     postgresql_url: localhost
@@ -27,8 +27,8 @@ tryton_versions:
       - py-xlsx
       - pytz
       - fuzzywuzzy    
-    email_uri: "smtp://example.com:25"
-    authentications: "ldap,password"
+    tryton_email_uri: "smtp://example.com:25"
+    tryton_authentications: "ldap,password"
 
     ##GIT CLONE
     clone_from_repository: false
@@ -48,7 +48,7 @@ tryton_versions:
     
     ##SAO
     sao_install: false
-    nodejs_version: "12.x"
+    sao_nodejs_version: "12.x"
     sao_version: "4.6.0"
     sao_dest: "/srv"
 

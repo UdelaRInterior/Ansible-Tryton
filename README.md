@@ -19,15 +19,15 @@ Example Playbook
     - role: udelarinterior.Ansible-Tryton
       tryton_versions:
         tryton_dev:
-          user: tryton
-          pass: tryton 
-          port: 8080
-          base_path: /home/tryton
+          tryton_user: tryton
+          tryton_pass: tryton 
+          tryton_port: 8080
+          tryton_base_path: /home/tryton
           python_version: python3
           python_state: latest
           postgresql_url: localhost
           postgresql_port: 5432
-          pip_packages: 
+          tryton_pip_packages: 
             - trytond>=4.6,<4.7
             - bcrypt
             - psycopg2
@@ -40,8 +40,8 @@ Example Playbook
             - py-xlsx
             - pytz
             - fuzzywuzzy    
-          email_uri: "smtp://example.com:25"
-          authentications: "ldap,password"
+          tryton_email_uri: "smtp://example.com:25"
+          tryton_authentications: "ldap,password"
 
           ##GIT CLONE
           clone_from_repository: true
@@ -61,7 +61,7 @@ Example Playbook
           
           ##SAO
           sao_install: true
-          nodejs_version: "12.x"
+          sao_nodejs_version: "12.x"
           sao_version: "4.6.0"
           sao_dest: "/srv"
 ```
