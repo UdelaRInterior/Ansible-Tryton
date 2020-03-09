@@ -17,29 +17,52 @@ Example Playbook
 - hosts: servers
   roles:
     - role: udelarinterior.Ansible-Tryton
-      ryton_base_path: /home/tryton
-      tryton_python_version: python3
-      tryton_python_state: latest
-      tryton_postgresql_user: tryton
-      tryton_postgresql_pass: tryton
-      tryton_postgresql_url: localhost
-      tryton_postgresql_port: 5432
-      tryton_pip_packages: 
-        - trytond>=4.6,<4.7
-        - bcrypt
-        - psycopg2
-        - trytond_company>=4.6,<4.7
-        - trytond_currency>=4.6,<4.7
-        - trytond_party>=4.6,<4.7
-        - trytond_stock>=4.6,<4.7
-        - trytond_product>=4.6,<4.7
-        - trytond_ldap_authentication>=4.6,<4.7
-        - py-xlsx
-        - pytz
-        - fuzzywuzzy
-       tryton_clone_from_repository: true
-       tryton_clone_from_url: 'git@github.com:example/project_name.git'
-       tryton_clone_dir_name: 'project_name'
+      tryton_versions:
+        tryton_dev:
+          user: tryton
+          pass: tryton 
+          base_path: /home/tryton
+          python_version: python3
+          python_state: latest
+          postgresql_url: localhost
+          postgresql_port: 5432
+          pip_packages: 
+            - trytond>=4.6,<4.7
+            - bcrypt
+            - psycopg2
+            - trytond_company>=4.6,<4.7
+            - trytond_currency>=4.6,<4.7
+            - trytond_party>=4.6,<4.7
+            - trytond_stock>=4.6,<4.7
+            - trytond_product>=4.6,<4.7
+            - trytond_ldap_authentication>=4.6,<4.7
+            - py-xlsx
+            - pytz
+            - fuzzywuzzy    
+          email_uri: "smtp://example.com:25"
+          authentications: "ldap,password"
+
+          ##GIT CLONE
+          clone_from_repository: true
+          clone_from_url: ''
+          clone_dir_name: ''
+          clone_git_url: gitlab.com
+          clone_is_private: true
+          clone_deploy_key: "deploy_key"
+          
+          ##REPO SYM LINK
+          clone_sym_link_module: "request"
+          
+          ##LDAP
+          ldap_bind_pass: "password"
+          ldap_uid: "uid"
+          ldap_uri: "ldap://ldap.example.com/ou=group,dc=example,dc=com??subtree??bindname=cn=login,cn=example,ou=group,dc=example,dc=com"
+          
+          ##SAO
+          sao_install: true
+          nodejs_version: "12.x"
+          sao_version: "4.6.0"
+          sao_dest: "/srv"
 ```
 
 License
