@@ -10,7 +10,7 @@
     owner: tryton
     group: tryton
     mode: "0600"
-  #no_log: true
+  no_log: true
   when: [ item.value.clone_is_private ] 
 
 - name: Clone | Git | Repo
