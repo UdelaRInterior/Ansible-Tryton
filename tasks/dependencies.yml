@@ -23,7 +23,6 @@
     name: "{{ item.value.user }}"
     create_home: yes
     home: "{{ item.value.base_path }}"
-    shell: /bin/false
     state: present
   with_dict: "{{ tryton_versions }}"
 

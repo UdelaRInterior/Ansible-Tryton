@@ -1,0 +1,17 @@
+[Unit]
+Description={{ item.value.systemd_description | default(item.value.systemd_name) }}
+
+[Service]
+ExecStart={{ item.value.systemd_start }}
+ExecStop={{ item.value.systemd_stop }}
+Restart=always
+User={{ item.value.user }}
+{% if item.value.systemd_enviroment is defined %}
+{% for env in item.value.systemd_enviroment %}
+Enviroment={{ item.value.systemd_enviroment.name }}={{ item.value.systemd_enviroment.value }}
+{% endfor %}
+{% endif %}
+WorkingDirectory={{ item.item.value.systemd_work_dir }}
+
+[Install]
+WantedBy=multi-user.target
