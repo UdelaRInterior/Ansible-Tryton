@@ -56,6 +56,13 @@ tryton_versions:
 
     #optional
     #tryton_systemd: service_name
+    #systemd_description:
+    #systemd_start:
+    #systemd_stop:
+    #systemd_enviroment:
+      #- name:
+      #  value:
+    #systemd_work_dir:
 
 #############################################
 #############################################

@@ -66,7 +66,18 @@ Example Playbook
           sao_nodejs_version: "12.x"
           sao_version: "4.6.0"
           sao_dest: "/srv"
+
+          #optional
+          #tryton_systemd: service_name
+          #systemd_description:
+          #systemd_start:
+          #systemd_stop:
+          #systemd_enviroment:
+            #- name:
+            #  value:
+          #systemd_work_dir:
 ```
+
 
 License
 -------
