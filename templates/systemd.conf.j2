@@ -1,9 +1,9 @@
 [Unit]
-Description={{ item.value.systemd_description | default(item.value.tryton_systemd) }}
+Description={{ item.value.systemd_description | default(item.value.systemd_service) }}
 
 [Service]
-ExecStart={{ item.value.systemd_start }}
-ExecStop={{ item.value.systemd_stop }}
+ExecStart={{ item.value.systemd_start | default(item.value.base_path + '/' + item.value.python_virtualenv_path + '/bin/trytond -v -c '+ item.value.base_path + '/' + item.value.python_virtualenv_path + '/trytond.conf') }}
+ExecStop={{ item.value.systemd_stop | default('') }}
 Restart=always
 User={{ item.value.user }}
 {% if item.value.systemd_enviroment is defined %}
@@ -11,7 +11,7 @@ User={{ item.value.user }}
 Enviroment={{ env.name }}={{ env.value }}
 {% endfor %}
 {% endif %}
-WorkingDirectory={{ item.value.systemd_work_dir }}
+WorkingDirectory={{ item.value.base_path }}/{{ item.value.python_virtualenv_path }}
 
 [Install]
 WantedBy=multi-user.target

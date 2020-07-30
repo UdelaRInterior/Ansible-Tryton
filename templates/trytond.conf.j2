@@ -65,19 +65,6 @@ path = /var/lib/tryton
 # fields in the database.
 #language = en
 
-[cache]
-# Defines the sizes of various caches.
-
-# The number of different models kept in the cache per transaction.
-#model = 200
-
-# The number of loaded records kept in the cache. It can also be changed
-# locally using the _record_cache_size key in Transaction.context.
-#record = 2000
-
-# The number of fields to load with eager Field.loading.
-#field = 100
-
 [table]
 # This section allows to override the default generated table name for
 # a ModelSQL. The main purpose is to bypass a limitation on the name length
@@ -153,14 +140,6 @@ record = 4000
 
 # The number of fields to load with eager Field.loading.
 field = 300
-
-[table]
-# This section allows to override the default generated table names. The main purpose
-# is to bypass name length limitations of a database backend.
-# Examples:
-#account.invoice.line = acc_inv_line
-#account.invoice.tax = acc_inv_tax
-
 
 # Module settings
 #

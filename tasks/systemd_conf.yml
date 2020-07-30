@@ -3,7 +3,7 @@
 - name:  Tryton | Systemd template
   template:
     src: systemd.conf.j2
-    dest: "/etc/systemd/system/{{ item.value.tryton_systemd }}.service"
+    dest: "/etc/systemd/system/{{ item.value.systemd_service }}.service"
     owner: "{{ item.value.user }}"
     mode: 0755
 
@@ -12,6 +12,6 @@
 
 - name: Tryton | Ensure services are started and enabled on boot
   service:
-    name: "{{ item.value.tryton_systemd }}.service"
+    name: "{{ item.value.systemd_service }}.service"
     state: started
     enabled: yes

@@ -13,5 +13,5 @@
   with_dict: "{{ tryton_versions }}"
 
 - include_tasks: systemd_conf.yml
-  when: [ item.value.tryton_systemd is defined ]
+  when: [ item.value.systemd_service is defined ]
   with_dict: "{{ tryton_versions }}"

@@ -16,7 +16,7 @@
 - name: Clone | Git | Repo
   git:
     repo: "{{ item.value.clone_from_url }}"
-    dest: "{{ item.value.base_path }}/python/{{ item.value.clone_dir_name }}"
+    dest: "{{ item.value.base_path }}/{{ item.value.python_virtualenv_path }}/{{ item.value.clone_dir_name }}"
     update: yes
     accept_hostkey: yes
     key_file: "{{ item.value.base_path }}/id_deploy_key"
@@ -24,6 +24,6 @@
 
 - name: Create | symbolic link 
   file:
-    src: "{{ item.value.base_path }}/python/{{ item.value.clone_dir_name }}/{{ item.value.clone_sym_link_module }}"
-    dest: "{{ item.value.base_path }}/python/lib/{{ item.value.python_version }}/site-packages/trytond/modules/{{ item.value.clone_sym_link_module }}"
+    src: "{{ item.value.base_path }}/{{ item.value.python_virtualenv_path }}/{{ item.value.clone_dir_name }}/{{ item.value.clone_sym_link_module }}"
+    dest: "{{ item.value.base_path }}/{{ item.value.python_virtualenv_path }}/lib/{{ item.value.python_version }}/site-packages/trytond/modules/{{ item.value.clone_sym_link_module }}"
     state: link
