@@ -11,3 +11,7 @@
 - include_tasks: tryton_sao.yml
   when: [ item.value.sao_install ]
   with_dict: "{{ tryton_versions }}"
+
+- include_tasks: systemd_conf.yml
+  when: [ item.value.systemd_service is defined ]
+  with_dict: "{{ tryton_versions }}"

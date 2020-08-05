@@ -2,28 +2,24 @@
 
 - name: Install | Dependencies
   apt:
-    name:
-      - python
-      - python-dev
-      - gcc
-      - libpq-dev
-      - virtualenv
+    name: "{{item.value.debian_packages_install}}"
     state: present
     update_cache: yes
+  with_dict: "{{ tryton_versions }}"
 
 - name: Upgrade | Pip
   pip:
-    name:
-      - pip
-      - virtualenv
+    name: "{{item.value.pip_packages_update}}"
     state: latest
+  with_dict: "{{ tryton_versions }}"
 
 - name: Create | User | Tryton
   user:
     name: "{{ item.value.user }}"
+    password: "{{ item.value.pass | password_hash( 'sha512', item.value.pass_salt ) }}"
+    shell: "{{ item.value.shell }}"
     create_home: yes
     home: "{{ item.value.base_path }}"
-    shell: /bin/false
     state: present
   with_dict: "{{ tryton_versions }}"
 
@@ -38,8 +34,20 @@
   pip: 
     requirements: requirements.txt
     chdir: "{{ item.value.base_path }}"
-    virtualenv: "{{ item.value.base_path }}/python"
+    virtualenv: "{{ item.value.base_path }}/{{ item.value.python_virtualenv_path }}"
     virtualenv_python: "{{ item.value.python_version }}"
     state: "{{ item.value.python_state }}"
+  when: [ item.value.python_virtualenv_command == false ] 
+  become_user: "{{ item.value.user }}"
+  with_dict: "{{ tryton_versions }}"
+
+- name: Pip | Tryton packages
+  pip: 
+    requirements: requirements.txt
+    chdir: "{{ item.value.base_path }}"
+    virtualenv: "{{ item.value.base_path }}/{{ item.value.python_virtualenv_path }}"
+    virtualenv_command: "{{ item.value.python_virtualenv_command }}"
+    state: "{{ item.value.python_state }}"
+  when: [ item.value.python_virtualenv_command ] 
   become_user: "{{ item.value.user }}"
   with_dict: "{{ tryton_versions }}"

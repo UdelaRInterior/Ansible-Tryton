@@ -19,15 +19,17 @@ Example Playbook
     - role: udelarinterior.Ansible-Tryton
       tryton_versions:
         tryton_dev:
-          tryton_user: tryton
-          tryton_pass: tryton 
-          tryton_port: 8080
-          tryton_base_path: /home/tryton
+          user: tryton
+          pass: tryton 
+          port: 8080
+          base_path: /home/tryton
           python_version: python3
           python_state: latest
           postgresql_url: localhost
           postgresql_port: 5432
-          tryton_pip_packages: 
+          postgresql_user: tryton
+          postgresql_pass: tryton
+          pip_packages: 
             - trytond>=4.6,<4.7
             - bcrypt
             - psycopg2
@@ -40,8 +42,8 @@ Example Playbook
             - py-xlsx
             - pytz
             - fuzzywuzzy    
-          tryton_email_uri: "smtp://example.com:25"
-          tryton_authentications: "ldap,password"
+          email_uri: "smtp://example.com:25"
+          authentications: "ldap,password"
 
           ##GIT CLONE
           clone_from_repository: true
@@ -64,7 +66,18 @@ Example Playbook
           sao_nodejs_version: "12.x"
           sao_version: "4.6.0"
           sao_dest: "/srv"
+
+          #optional
+          #tryton_systemd: service_name
+          #systemd_description:
+          #systemd_start:
+          #systemd_stop:
+          #systemd_enviroment:
+            #- name:
+            #  value:
+          #systemd_work_dir:
 ```
+
 
 License
 -------
