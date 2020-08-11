@@ -1,7 +1,7 @@
 Ansible - Tryton
 =========
 
-Role that install dependencies for tryton and clone from a repository if neccesary.
+Role to install tryton and dependencies inside a python environment and clone a tryton module repository if necessary.
 
 This role also allows you to install the `sao` client.
 
@@ -21,30 +21,34 @@ Example Playbook
         tryton_dev:
           user: tryton
           pass: tryton 
+          pass_salt: s3cr3t
+          shell: /bin/bash
+          base_path: /home/tryton          
           port: 8080
-          base_path: /home/tryton
-          python_version: python3
+          python_version: python2.7
           python_state: latest
+          python_virtualenv_path: python
+          python_virtualenv_command: false
+          debian_packages_install:
+            - python
+            - python-dev
+            - gcc
+            - libpq-dev
+            - virtualenv
+          pip_packages_update:
+            - pip
+            - virtualenv
+          pip_tryton_packages: 
+            - trytond>=4.6,<4.7
+            - bcrypt
+            - psycopg2-binary   
+          email_uri: "smtp://example.com:25"
+          authentications: "ldap,password"
           postgresql_url: localhost
           postgresql_port: 5432
           postgresql_user: tryton
           postgresql_pass: tryton
-          pip_packages: 
-            - trytond>=4.6,<4.7
-            - bcrypt
-            - psycopg2
-            - trytond_company>=4.6,<4.7
-            - trytond_currency>=4.6,<4.7
-            - trytond_party>=4.6,<4.7
-            - trytond_stock>=4.6,<4.7
-            - trytond_product>=4.6,<4.7
-            - trytond_ldap_authentication>=4.6,<4.7
-            - py-xlsx
-            - pytz
-            - fuzzywuzzy    
-          email_uri: "smtp://example.com:25"
-          authentications: "ldap,password"
-
+    
           ##GIT CLONE
           clone_from_repository: true
           clone_from_url: ''
@@ -68,14 +72,13 @@ Example Playbook
           sao_dest: "/srv"
 
           #optional
-          #tryton_systemd: service_name
+          #systemd_service: service_name
           #systemd_description:
           #systemd_start:
           #systemd_stop:
           #systemd_enviroment:
             #- name:
             #  value:
-          #systemd_work_dir:
 ```
 
 
@@ -89,5 +92,6 @@ Author Information
 ------------------
 
 [@Dkmarce](https://github.com/Dkmarce)  
+[@andrespias](https://github.com/andrespias)
 [@UdelaRInterior](https://github.com/UdelaRInterior)  
 https://proyectos.interior.edu.uy/

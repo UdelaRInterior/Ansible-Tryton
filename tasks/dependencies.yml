@@ -35,19 +35,21 @@
     requirements: requirements.txt
     chdir: "{{ item.value.base_path }}"
     virtualenv: "{{ item.value.base_path }}/{{ item.value.python_virtualenv_path }}"
-    virtualenv_python: "{{ item.value.python_version }}"
+    virtualenv_python: "{{ item.value.python_version | default(omit) }}"
+    virtualenv_command: "{{ item.value.python_virtualenv_command | default(omit) }}"
     state: "{{ item.value.python_state }}"
-  when: [ item.value.python_virtualenv_command == false ] 
+#  when: [ item.value.python_virtualenv_command == false ] 
   become_user: "{{ item.value.user }}"
   with_dict: "{{ tryton_versions }}"
 
-- name: Pip | Tryton packages
-  pip: 
-    requirements: requirements.txt
-    chdir: "{{ item.value.base_path }}"
-    virtualenv: "{{ item.value.base_path }}/{{ item.value.python_virtualenv_path }}"
-    virtualenv_command: "{{ item.value.python_virtualenv_command }}"
-    state: "{{ item.value.python_state }}"
-  when: [ item.value.python_virtualenv_command ] 
-  become_user: "{{ item.value.user }}"
-  with_dict: "{{ tryton_versions }}"
+# Python3 virtual enviroment
+#- name: Pip | Tryton packages
+#  pip: 
+#    requirements: requirements.txt
+#    chdir: "{{ item.value.base_path }}"
+#    virtualenv: "{{ item.value.base_path }}/{{ item.value.python_virtualenv_path }}"
+#    virtualenv_command: "{{ item.value.python_virtualenv_command }}"
+#    state: "{{ item.value.python_state }}"
+#  when: [ item.value.python_virtualenv_command ] 
+#  become_user: "{{ item.value.user }}"
+#  with_dict: "{{ tryton_versions }}"
