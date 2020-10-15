@@ -8,27 +8,37 @@
     content: "{{ item.value.clone_deploy_key }}"
     dest: "{{ item.value.base_path }}/id_deploy_key"
     owner: "{{ item.value.user }}"
-    group: "{{ item.value.user }}"
+    #group: "{{ item.value.group }}"
     mode: "0600"
   become_user: "{{ item.value.user }}"    
   no_log: true
   when: [ item.value.clone_is_private ] 
 
-- name: Clone | Git | Repo
-  git:
-    repo: "{{ item.value.clone_from_url }}"
-    dest: "{{ item.value.base_path }}/{{ item.value.python_virtualenv_path }}/{{ item.value.clone_dir_name }}"
-    update: yes
-    accept_hostkey: yes
-    key_file: "{{ item.value.base_path }}/id_deploy_key"
-  become_user: "{{ item.value.user }}"
+- name: Create | SSH Directory
+  file:
+    path: "{{ item.value.base_path }}/.ssh"
+    state: directory
+    mode: '0700'
+    owner: "{{ item.value.user }}"
+    #group: "{{ item.value.group }}" 
+  become_user: "{{ item.value.user }}"      
 
-- name: Config | SSH | Repo
+- name: Config | SSH 
   template:
     src: ssh_config.j2
     dest: "{{ item.value.base_path }}/.ssh/config" 
     owner: "{{ item.value.user }}"
-    group: "{{ item.value.user }}" 
+    #group: "{{ item.value.group }}" 
+  become_user: "{{ item.value.user }}"
+
+- name: Clone | Git | Repo
+  git:
+    repo: "{{ item.value.clone_from_url }}"
+    dest: "{{ item.value.base_path }}/{{ item.value.python_virtualenv_path }}/{{ item.value.clone_dir_name }}"
+    version: "{{ item.value.clone_version }}"
+    update: yes
+    accept_hostkey: yes
+#    key_file: "{{ item.value.base_path }}/id_deploy_key"
   become_user: "{{ item.value.user }}"
 
 - name: Find | /lib/python* path
@@ -44,5 +54,5 @@
     dest: "{{ pyhton_lib_dir.files[0].path }}/site-packages/trytond/modules/{{ item.value.clone_sym_link_module }}"
     state: link
     owner: "{{ item.value.user }}"
-    group: "{{ item.value.user }}"
+#    group: "{{ item.value.group }}"
   become_user: "{{ item.value.user }}"

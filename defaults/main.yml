@@ -7,9 +7,10 @@
 tryton_versions:
   tryton_dev:
     user: tryton
-    pass: tryton 
+    pass: tryton
     pass_salt: s3cr3t
     shell: /bin/bash
+    #sudoer: 
     base_path: /home/tryton
     port: 8080
     python_version: python2.7    
@@ -39,6 +40,7 @@ tryton_versions:
     ##GIT CLONE
     clone_from_repository: false
     clone_from_url: ''
+    clone_version: 'master'
     clone_dir_name: ''
     clone_git_url: gitlab.com
     clone_is_private: false
