@@ -12,13 +12,13 @@
 # Settings for the web interface
 
 # The IP/host and port number of the interface
-# (Internal default: localhost:8000)
+# (Internal default: localhost:{{ item.value.port }})
 #
 # Listen on all interfaces (IPv4)
-listen = 0.0.0.0:{{ item.value.port }}
+#listen = 0.0.0.0:{{ item.value.port }}
 #
 # Listen on all interfaces (IPv4 and IPv6)
-#listen = localhost:8000
+listen = [::]:{{ item.value.port }}
 
 # The hostname for this interface
 #hostname = localhost
@@ -202,11 +202,11 @@ uid = {{ item.value.ldap_uid }}
 # Settings for the webdav interface
 # The IP/host and port number of the interface
 # (Internal default: localhost:8080)
-listen = localhost:{{ item.value.port }}
+#listen = localhost:{{ item.value.port }}
 # Listen on all interfaces (IPv4)
-#listen = 0.0.0.0:8080
+#listen = 0.0.0.0:{{ item.value.port }}
 # Listen on all interfaces (IPv4 and IPv6)
-#listen = [::]:8080
+listen = [::]:{{ item.value.port }}
 
 # The hostname for this interface
 #hostname = 

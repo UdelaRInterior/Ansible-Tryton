@@ -43,7 +43,7 @@
     name: bower
     global: yes
     state: present
-  become_user: "{{ item.value.user }}"
+#  become_user: "{{ item.value.user }}"
 
 - name: Tryton-sao | Bower install
   bower:
@@ -55,7 +55,7 @@
     name: grunt
     global: yes
     state: present
-  become_user: "{{ item.value.user }}"
+#  become_user: "{{ item.value.user }}"
 
 - name: Tryton-sao | Grunt
   shell: 
