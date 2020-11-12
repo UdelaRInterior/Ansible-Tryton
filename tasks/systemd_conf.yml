@@ -15,3 +15,22 @@
     name: "{{ item.value.systemd_service }}.service"
     state: started
     enabled: yes
+
+- name: Tryton | Define cmnd_alias to allow 'tryton' privileges
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^Cmnd_Alias TRYTON_ADMIN'
+    line: '{{ item.value.sudoer }}'
+    validate: 'visudo -cf %s'
+  when: [ item.value.sudoer is defined ]  
+
+- name: Tryton | Allow 'tryton' user to have passwordless sudo 
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^{{ item.value.user }}'
+    line: '{{ item.value.user }} ALL = NOPASSWD: TRYTON_ADMIN'
+    validate: 'visudo -cf %s'
+  when: [ item.value.sudoer is defined ]
+...

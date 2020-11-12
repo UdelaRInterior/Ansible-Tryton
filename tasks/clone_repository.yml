@@ -7,23 +7,52 @@
   copy:
     content: "{{ item.value.clone_deploy_key }}"
     dest: "{{ item.value.base_path }}/id_deploy_key"
-    owner: tryton
-    group: tryton
+    owner: "{{ item.value.user }}"
+    #group: "{{ item.value.group }}"
     mode: "0600"
+  become_user: "{{ item.value.user }}"    
   no_log: true
   when: [ item.value.clone_is_private ] 
+
+- name: Create | SSH Directory
+  file:
+    path: "{{ item.value.base_path }}/.ssh"
+    state: directory
+    mode: '0700'
+    owner: "{{ item.value.user }}"
+    #group: "{{ item.value.group }}" 
+  become_user: "{{ item.value.user }}"      
+
+- name: Config | SSH 
+  template:
+    src: ssh_config.j2
+    dest: "{{ item.value.base_path }}/.ssh/config" 
+    owner: "{{ item.value.user }}"
+    #group: "{{ item.value.group }}" 
+  become_user: "{{ item.value.user }}"
 
 - name: Clone | Git | Repo
   git:
     repo: "{{ item.value.clone_from_url }}"
     dest: "{{ item.value.base_path }}/{{ item.value.python_virtualenv_path }}/{{ item.value.clone_dir_name }}"
+    version: "{{ item.value.clone_version }}"
     update: yes
     accept_hostkey: yes
-    key_file: "{{ item.value.base_path }}/id_deploy_key"
+#    key_file: "{{ item.value.base_path }}/id_deploy_key"
   become_user: "{{ item.value.user }}"
+
+- name: Find | /lib/python* path
+  find:
+    paths: '{{ item.value.base_path }}/{{ item.value.python_virtualenv_path }}/lib/'
+    patterns: 'python*'
+    file_type: directory
+  register: pyhton_lib_dir
 
 - name: Create | symbolic link 
   file:
     src: "{{ item.value.base_path }}/{{ item.value.python_virtualenv_path }}/{{ item.value.clone_dir_name }}/{{ item.value.clone_sym_link_module }}"
-    dest: "{{ item.value.base_path }}/{{ item.value.python_virtualenv_path }}/lib/{{ item.value.python_version }}/site-packages/trytond/modules/{{ item.value.clone_sym_link_module }}"
+    dest: "{{ pyhton_lib_dir.files[0].path }}/site-packages/trytond/modules/{{ item.value.clone_sym_link_module }}"
     state: link
+    owner: "{{ item.value.user }}"
+#    group: "{{ item.value.group }}"
+  become_user: "{{ item.value.user }}"

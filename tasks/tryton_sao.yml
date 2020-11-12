@@ -36,24 +36,29 @@
     path: "{{ item.value.sao_dest }}/sao-{{ item.value.sao_version }}"
     executable: /usr/bin/npm
     state: present
+  become_user: "{{ item.value.user }}"
 
 - name: Tryton-sao | npm Bower install
   npm:
     name: bower
     global: yes
     state: present
+#  become_user: "{{ item.value.user }}"
 
 - name: Tryton-sao | Bower install
   bower:
     path: "{{ item.value.sao_dest }}/sao-{{ item.value.sao_version }}"
+  become_user: "{{ item.value.user }}"
 
 - name: Tryton-sao | npm Grunt install
   npm:
     name: grunt
     global: yes
     state: present
+#  become_user: "{{ item.value.user }}"
 
 - name: Tryton-sao | Grunt
   shell: 
     cmd: grunt
     chdir: "{{ item.value.sao_dest }}/sao-{{ item.value.sao_version }}"
+  become_user: "{{ item.value.user }}"    
